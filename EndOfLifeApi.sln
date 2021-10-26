@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{F9861B98-CB01-4A8C-A017-45C61FC6D1EE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{CC5FF42B-3713-45CE-ABA4-FF398F4606DB}"
+ProjectSection(SolutionItems) = preProject
+	.editorconfig = .editorconfig
+EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EndOfLifeApi", "src\EndOfLifeApi.csproj", "{175C39FF-3B90-4262-AB83-0B627D8B31C4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{175C39FF-3B90-4262-AB83-0B627D8B31C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{175C39FF-3B90-4262-AB83-0B627D8B31C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{175C39FF-3B90-4262-AB83-0B627D8B31C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{175C39FF-3B90-4262-AB83-0B627D8B31C4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{175C39FF-3B90-4262-AB83-0B627D8B31C4} = {F9861B98-CB01-4A8C-A017-45C61FC6D1EE}
+	EndGlobalSection
+EndGlobal
