@@ -91,14 +91,14 @@ namespace EndOfLifeApi.Helpers {
 			}
 
 			if (tfm.Contains(';')) {
-				throw new ArgumentException("This method only supports singular TFM. You appear to have passed in a string with multiple TFMs", nameof(tfm));
+				throw new ArgumentException("This method only supports a singular TFM. You appear to have passed in a string with multiple TFMs.");
 			}
 
 			if (TargetFrameworksWithEndOfLifeDate.ContainsKey(tfm)) {
 				return TargetFrameworksWithEndOfLifeDate[tfm].HasValue && TargetFrameworksWithEndOfLifeDate[tfm]!.Value <= DateOnly.FromDateTime(DateTime.UtcNow);
 			}
 
-			throw new TargetFrameworkUnknownException($"I do not have {tfm} in my registry. If this is a valid TFM, please log an issue on GitHub at https://github.com/Doug-Murphy/EndOfLifeApi/issues/new.");
+			throw new TargetFrameworkUnknownException($"I do not have TFM '{tfm}' in my registry. If this is a valid TFM, please log an issue on GitHub at https://github.com/Doug-Murphy/EndOfLifeApi/issues/new.");
 		}
 	}
 }
