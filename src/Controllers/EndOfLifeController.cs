@@ -1,4 +1,5 @@
-﻿using EndOfLifeApi.Exceptions;
+﻿using EndOfLifeApi.Enums;
+using EndOfLifeApi.Exceptions;
 using EndOfLifeApi.Helpers;
 using EndOfLifeApi.Models;
 using Microsoft.AspNetCore.Http;
@@ -41,16 +42,18 @@ namespace EndOfLifeApi.Controllers {
 			}
 		}
 
-		/// <summary>Get a list of all Target Framework Monikers that are currently end of life.</summary>
+		/// <summary>Get a list of all Target Framework Monikers that are currently end of life or will be end of life within a specified timeframe.</summary>
+		/// <param name="timeframeUnit">The unit of the timeframe. eg. day, week, etc.</param>
+		/// <param name="timeframeAmount">How many of the unit to forecast ahead for. eg. 3 weeks, 4 months, etc.</param>
 		/// <returns></returns>
 		[HttpGet]
 		[Route("get-all-eol")]
 		[ProducesResponseType(typeof(ImmutableArray<string>), StatusCodes.Status200OK)]
 		[ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
 		[ProducesDefaultResponseType]
-		public IActionResult GetAllCurrentEndOfLifeTargetFrameworks() {
+		public IActionResult GetEndOfLifeTargetFrameworks(TimeframeUnit? timeframeUnit, byte? timeframeAmount) {
 			try {
-				ImmutableArray<string> endOfLifeResults = TargetFrameworkEndOfLifeHelper.GetAllEndOfLifeTargetFrameworkMonikers();
+				ImmutableArray<string> endOfLifeResults = TargetFrameworkEndOfLifeHelper.GetAllEndOfLifeTargetFrameworkMonikers(timeframeUnit, timeframeAmount);
 
 				return Ok(endOfLifeResults);
 			}

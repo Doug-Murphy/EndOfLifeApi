@@ -1,4 +1,5 @@
-﻿using EndOfLifeApi.Exceptions;
+﻿using EndOfLifeApi.Enums;
+using EndOfLifeApi.Exceptions;
 using EndOfLifeApi.Models;
 using System;
 using System.Collections.Generic;
@@ -83,8 +84,22 @@ namespace EndOfLifeApi.Helpers {
 			{"net6.0-windows", null},
 		}.ToImmutableDictionary();
 
-		public static ImmutableArray<string> GetAllEndOfLifeTargetFrameworkMonikers() {
-			return TargetFrameworksWithEndOfLifeDate.Where(tfm => tfm.Value <= DateOnly.FromDateTime(DateTime.UtcNow))
+		public static ImmutableArray<string> GetAllEndOfLifeTargetFrameworkMonikers(TimeframeUnit? timeframeUnit = null, byte? timeframeAmount = null) {
+			DateOnly forecastedDateToCompare;
+			if (timeframeUnit.HasValue && timeframeAmount.HasValue) {
+				forecastedDateToCompare = timeframeUnit switch {
+					TimeframeUnit.Day => DateOnly.FromDateTime(DateTime.UtcNow).AddDays(timeframeAmount.GetValueOrDefault()),
+					TimeframeUnit.Week => DateOnly.FromDateTime(DateTime.UtcNow).AddDays(7 * timeframeAmount.GetValueOrDefault()),
+					TimeframeUnit.Month => DateOnly.FromDateTime(DateTime.UtcNow).AddMonths(timeframeAmount.GetValueOrDefault()),
+					TimeframeUnit.Year => DateOnly.FromDateTime(DateTime.UtcNow).AddYears(timeframeAmount.GetValueOrDefault()),
+					_ => throw new ArgumentOutOfRangeException(nameof(timeframeUnit), timeframeUnit, null),
+				};
+			}
+			else {
+				forecastedDateToCompare = DateOnly.FromDateTime(DateTime.UtcNow);
+			}
+
+			return TargetFrameworksWithEndOfLifeDate.Where(tfm => tfm.Value <= forecastedDateToCompare)
 			                                        .Select(tfm => tfm.Key)
 			                                        .OrderBy(tfm => tfm).ToImmutableArray();
 		}
