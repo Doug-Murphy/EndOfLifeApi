@@ -1,7 +1,9 @@
 ﻿using EndOfLifeApi.Exceptions;
+using EndOfLifeApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Linq;
 
 namespace EndOfLifeApi.Helpers {
 	public static class TargetFrameworkEndOfLifeHelper {
@@ -81,11 +83,27 @@ namespace EndOfLifeApi.Helpers {
 			{"net6.0-windows", null},
 		}.ToImmutableDictionary();
 
+		public static TargetFrameworkCheckResponse CheckTargetFrameworkForEndOfLife(string rawTfm) {
+			if (string.IsNullOrWhiteSpace(rawTfm)) {
+				throw new ArgumentNullException(nameof(rawTfm));
+			}
+
+			string[]? tfms = rawTfm.Split(';', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
+
+			if (tfms.Length == 0) {
+				throw new ArgumentException($"No Target Framework Monikers could be found in string {rawTfm}");
+			}
+
+			string[] endOfLifeTargetFrameworks = tfms.Where(IsSingularTfmEol).ToArray();
+
+			return new TargetFrameworkCheckResponse(endOfLifeTargetFrameworks.ToImmutableArray());
+		}
+
 		/// <summary>Determine if a singular Target Framework Moniker is currently end of life.</summary>
 		/// <param name="tfm">The singular Target Framework Moniker to check for (eg. net45, netcoreapp2.1)</param>
 		/// <returns></returns>
 		/// <exception cref="TargetFrameworkUnknownException">Thrown when the TFM is not currently registered by the application.</exception>
-		public static bool IsSingularTfmEol(string tfm) {
+		private static bool IsSingularTfmEol(string tfm) {
 			if (string.IsNullOrWhiteSpace(tfm)) {
 				throw new ArgumentNullException(nameof(tfm));
 			}
