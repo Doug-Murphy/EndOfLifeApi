@@ -5,6 +5,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{CC5FF42B-3713-45CE-ABA4-FF398F4606DB}"
 ProjectSection(SolutionItems) = preProject
 	.editorconfig = .editorconfig
+	README.md = README.md
 EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EndOfLifeApi", "src\EndOfLifeApi.csproj", "{175C39FF-3B90-4262-AB83-0B627D8B31C4}"
