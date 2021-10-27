@@ -5,10 +5,10 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["EndOfLifeApi/EndOfLifeApi.csproj", "EndOfLifeApi/"]
-RUN dotnet restore "EndOfLifeApi/EndOfLifeApi.csproj"
+COPY ["EndOfLifeApi.csproj", "EndOfLifeApi/"]
+RUN dotnet restore "EndOfLifeApi.csproj"
 COPY . .
-WORKDIR "/src/EndOfLifeApi"
+WORKDIR "/src"
 RUN dotnet build "EndOfLifeApi.csproj" -c Release -o /app/build
 
 FROM build AS publish
