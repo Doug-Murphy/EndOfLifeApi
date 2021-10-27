@@ -1,9 +1,10 @@
-﻿using System;
+﻿using EndOfLifeApi.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 
 namespace EndOfLifeApi.Helpers {
-	public class TargetFrameworkEndOfLifeHelper {
+	public static class TargetFrameworkEndOfLifeHelper {
 		//TFM list found on https://docs.microsoft.com/en-us/dotnet/standard/frameworks
 		private static readonly ImmutableDictionary<string, DateOnly?> TargetFrameworksWithEndOfLifeDate = new Dictionary<string, DateOnly?> {
 			//.NET Standard does not have an EOL
@@ -79,5 +80,25 @@ namespace EndOfLifeApi.Helpers {
 			{"net6.0-tvos", null},
 			{"net6.0-windows", null},
 		}.ToImmutableDictionary();
+
+		/// <summary>Determine if a singular Target Framework Moniker is currently end of life.</summary>
+		/// <param name="tfm">The singular Target Framework Moniker to check for (eg. net45, netcoreapp2.1)</param>
+		/// <returns></returns>
+		/// <exception cref="TargetFrameworkUnknownException">Thrown when the TFM is not currently registered by the application.</exception>
+		public static bool IsSingularTfmEol(string tfm) {
+			if (string.IsNullOrWhiteSpace(tfm)) {
+				throw new ArgumentNullException(nameof(tfm));
+			}
+
+			if (tfm.Contains(';')) {
+				throw new ArgumentException("This method only supports singular TFM. You appear to have passed in a string with multiple TFMs", nameof(tfm));
+			}
+
+			if (TargetFrameworksWithEndOfLifeDate.ContainsKey(tfm)) {
+				return TargetFrameworksWithEndOfLifeDate[tfm].HasValue && TargetFrameworksWithEndOfLifeDate[tfm]!.Value <= DateOnly.FromDateTime(DateTime.UtcNow);
+			}
+
+			throw new TargetFrameworkUnknownException($"I do not have {tfm} in my registry. If this is a valid TFM, please log an issue on GitHub at https://github.com/Doug-Murphy/EndOfLifeApi/issues/new.");
+		}
 	}
 }
