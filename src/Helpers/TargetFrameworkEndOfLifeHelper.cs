@@ -83,12 +83,18 @@ namespace EndOfLifeApi.Helpers {
 			{"net6.0-windows", null},
 		}.ToImmutableDictionary();
 
+		public static ImmutableArray<string> GetAllEndOfLifeTargetFrameworkMonikers() {
+			return TargetFrameworksWithEndOfLifeDate.Where(tfm => tfm.Value <= DateOnly.FromDateTime(DateTime.UtcNow))
+			                                        .Select(tfm => tfm.Key)
+			                                        .OrderBy(tfm => tfm).ToImmutableArray();
+		}
+
 		public static TargetFrameworkCheckResponse CheckTargetFrameworkForEndOfLife(string rawTfm) {
 			if (string.IsNullOrWhiteSpace(rawTfm)) {
 				throw new ArgumentNullException(nameof(rawTfm));
 			}
 
-			string[]? tfms = rawTfm.Split(';', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
+			string[] tfms = rawTfm.Split(';', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
 
 			if (tfms.Length == 0) {
 				throw new ArgumentException($"No Target Framework Monikers could be found in string {rawTfm}");

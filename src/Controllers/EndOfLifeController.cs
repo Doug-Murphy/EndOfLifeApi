@@ -4,6 +4,7 @@ using EndOfLifeApi.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Immutable;
 
 namespace EndOfLifeApi.Controllers {
 	[ApiController]
@@ -26,6 +27,30 @@ namespace EndOfLifeApi.Controllers {
 				if (endOfLifeResults.EndOfLifeTargetFrameworks.Length == 0) {
 					return NoContent();
 				}
+
+				return Ok(endOfLifeResults);
+			}
+			catch (ArgumentNullException ex) {
+				return BadRequest(new ProblemDetails {Detail = ex.Message});
+			}
+			catch (ArgumentException ex) {
+				return BadRequest(new ProblemDetails {Detail = ex.Message});
+			}
+			catch (TargetFrameworkUnknownException ex) {
+				return BadRequest(new ProblemDetails {Detail = ex.Message});
+			}
+		}
+
+		/// <summary>Get a list of all Target Framework Monikers that are currently end of life.</summary>
+		/// <returns></returns>
+		[HttpGet]
+		[Route("get-all-eol")]
+		[ProducesResponseType(typeof(ImmutableArray<string>), StatusCodes.Status200OK)]
+		[ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+		[ProducesDefaultResponseType]
+		public IActionResult GetAllCurrentEndOfLifeTargetFrameworks() {
+			try {
+				ImmutableArray<string> endOfLifeResults = TargetFrameworkEndOfLifeHelper.GetAllEndOfLifeTargetFrameworkMonikers();
 
 				return Ok(endOfLifeResults);
 			}
