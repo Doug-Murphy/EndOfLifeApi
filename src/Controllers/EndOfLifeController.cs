@@ -1,5 +1,4 @@
 ﻿using EndOfLifeApi.Enums;
-using EndOfLifeApi.Exceptions;
 using EndOfLifeApi.Helpers;
 using EndOfLifeApi.Models;
 using Microsoft.AspNetCore.Http;
@@ -21,25 +20,14 @@ namespace EndOfLifeApi.Controllers {
 		[ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
 		[ProducesDefaultResponseType]
 		public IActionResult CheckTargetFrameworkForEndOfLife(string tfm) {
-			try {
-				ArgumentNullException.ThrowIfNull(tfm);
+			ArgumentNullException.ThrowIfNull(tfm);
 
-				TargetFrameworkCheckResponse endOfLifeResults = TargetFrameworkEndOfLifeHelper.CheckTargetFrameworkForEndOfLife(tfm);
-				if (endOfLifeResults.EndOfLifeTargetFrameworks.Length == 0) {
-					return NoContent();
-				}
+			TargetFrameworkCheckResponse endOfLifeResults = TargetFrameworkEndOfLifeHelper.CheckTargetFrameworkForEndOfLife(tfm);
+			if (endOfLifeResults.EndOfLifeTargetFrameworks.Length == 0) {
+				return NoContent();
+			}
 
-				return Ok(endOfLifeResults);
-			}
-			catch (ArgumentNullException ex) {
-				return BadRequest(new ProblemDetails {Detail = ex.Message});
-			}
-			catch (ArgumentException ex) {
-				return BadRequest(new ProblemDetails {Detail = ex.Message});
-			}
-			catch (TargetFrameworkUnknownException ex) {
-				return BadRequest(new ProblemDetails {Detail = ex.Message});
-			}
+			return Ok(endOfLifeResults);
 		}
 
 		/// <summary>Get a list of all Target Framework Monikers that are currently end of life or will be end of life within a specified timeframe.</summary>
@@ -52,20 +40,9 @@ namespace EndOfLifeApi.Controllers {
 		[ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
 		[ProducesDefaultResponseType]
 		public IActionResult GetEndOfLifeTargetFrameworks(TimeframeUnit? timeframeUnit, byte? timeframeAmount) {
-			try {
-				ImmutableArray<string> endOfLifeResults = TargetFrameworkEndOfLifeHelper.GetAllEndOfLifeTargetFrameworkMonikers(timeframeUnit, timeframeAmount);
+			ImmutableArray<string> endOfLifeResults = TargetFrameworkEndOfLifeHelper.GetAllEndOfLifeTargetFrameworkMonikers(timeframeUnit, timeframeAmount);
 
-				return Ok(endOfLifeResults);
-			}
-			catch (ArgumentNullException ex) {
-				return BadRequest(new ProblemDetails {Detail = ex.Message});
-			}
-			catch (ArgumentException ex) {
-				return BadRequest(new ProblemDetails {Detail = ex.Message});
-			}
-			catch (TargetFrameworkUnknownException ex) {
-				return BadRequest(new ProblemDetails {Detail = ex.Message});
-			}
+			return Ok(endOfLifeResults);
 		}
 	}
 }
