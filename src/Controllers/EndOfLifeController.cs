@@ -4,7 +4,6 @@ using EndOfLifeApi.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Immutable;
 
 namespace EndOfLifeApi.Controllers {
 	[ApiController]
@@ -36,11 +35,11 @@ namespace EndOfLifeApi.Controllers {
 		/// <returns></returns>
 		[HttpGet]
 		[Route("get-all-eol")]
-		[ProducesResponseType(typeof(ImmutableArray<string>), StatusCodes.Status200OK)]
+		[ProducesResponseType(typeof(TargetFrameworkCheckResponse), StatusCodes.Status200OK)]
 		[ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
 		[ProducesDefaultResponseType]
 		public IActionResult GetEndOfLifeTargetFrameworks(TimeframeUnit? timeframeUnit, byte? timeframeAmount) {
-			ImmutableArray<string> endOfLifeResults = TargetFrameworkEndOfLifeHelper.GetAllEndOfLifeTargetFrameworkMonikers(timeframeUnit, timeframeAmount);
+			TargetFrameworkCheckResponse endOfLifeResults = TargetFrameworkEndOfLifeHelper.GetAllEndOfLifeTargetFrameworkMonikers(timeframeUnit, timeframeAmount);
 
 			return Ok(endOfLifeResults);
 		}

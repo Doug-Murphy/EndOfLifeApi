@@ -25,38 +25,41 @@ Example: When passing `net45;net5.0` for the TFM.
 
 ## /EndOfLife/get-all-eol?timeframeUnit=\<enum>&timeframeAmount=\<byte>
 
-This endpoint will return a simple JSON array of all TFM's that are currently EOL, or will be EOL within the (optional)
+This endpoint will return a JSON object with an array named `endOfLifeTargetFrameworks` containing all TFM's that are
+currently EOL, or will be EOL within the (optional)
 query-string parameter timeframe. The results are sorted alphabetically to provide easier manual parsing.
 
 ```json
-[
-    "net11",
-    "net20",
-    "net30",
-    "net40",
-    "net403",
-    "net45",
-    "net451",
-    "net452",
-    "net46",
-    "net461",
-    "netcoreapp1.0",
-    "netcoreapp1.1",
-    "netcoreapp2.0",
-    "netcoreapp2.1",
-    "netcoreapp2.2",
-    "netcoreapp3.0",
-    "v1.1",
-    "v2.0",
-    "v3.0",
-    "v4.0",
-    "v4.0.3",
-    "v4.5",
-    "v4.5.1",
-    "v4.5.2",
-    "v4.6",
-    "v4.6.1"
-]
+{
+    "endOfLifeTargetFrameworks": [
+        "net11",
+        "net20",
+        "net30",
+        "net40",
+        "net403",
+        "net45",
+        "net451",
+        "net452",
+        "net46",
+        "net461",
+        "netcoreapp1.0",
+        "netcoreapp1.1",
+        "netcoreapp2.0",
+        "netcoreapp2.1",
+        "netcoreapp2.2",
+        "netcoreapp3.0",
+        "v1.1",
+        "v2.0",
+        "v3.0",
+        "v4.0",
+        "v4.0.3",
+        "v4.5",
+        "v4.5.1",
+        "v4.5.2",
+        "v4.6",
+        "v4.6.1"
+    ]
+}
 ```
 
 # Usage

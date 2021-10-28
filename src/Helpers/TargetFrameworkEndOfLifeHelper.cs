@@ -84,7 +84,7 @@ namespace EndOfLifeApi.Helpers {
 			{"net6.0-windows", null},
 		}.ToImmutableDictionary();
 
-		public static ImmutableArray<string> GetAllEndOfLifeTargetFrameworkMonikers(TimeframeUnit? timeframeUnit = null, byte? timeframeAmount = null) {
+		public static TargetFrameworkCheckResponse GetAllEndOfLifeTargetFrameworkMonikers(TimeframeUnit? timeframeUnit = null, byte? timeframeAmount = null) {
 			DateOnly forecastedDateToCompare;
 			if (timeframeUnit.HasValue && timeframeAmount.HasValue) {
 				forecastedDateToCompare = timeframeUnit switch {
@@ -99,9 +99,9 @@ namespace EndOfLifeApi.Helpers {
 				forecastedDateToCompare = DateOnly.FromDateTime(DateTime.UtcNow);
 			}
 
-			return TargetFrameworksWithEndOfLifeDate.Where(tfm => tfm.Value <= forecastedDateToCompare)
-			                                        .Select(tfm => tfm.Key)
-			                                        .OrderBy(tfm => tfm).ToImmutableArray();
+			return new TargetFrameworkCheckResponse(TargetFrameworksWithEndOfLifeDate.Where(tfm => tfm.Value <= forecastedDateToCompare)
+			                                                                         .Select(tfm => tfm.Key)
+			                                                                         .OrderBy(tfm => tfm).ToImmutableArray());
 		}
 
 		public static TargetFrameworkCheckResponse CheckTargetFrameworkForEndOfLife(string rawTfm) {
