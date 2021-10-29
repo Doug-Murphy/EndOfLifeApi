@@ -125,14 +125,6 @@ namespace EndOfLifeApi.Helpers {
 		/// <returns></returns>
 		/// <exception cref="TargetFrameworkUnknownException">Thrown when the TFM is not currently registered by the application.</exception>
 		private static bool IsSingularTfmEol(string tfm) {
-			if (string.IsNullOrWhiteSpace(tfm)) {
-				throw new ArgumentNullException(nameof(tfm));
-			}
-
-			if (tfm.Contains(';')) {
-				throw new ArgumentException("This method only supports a singular TFM. You appear to have passed in a string with multiple TFMs.");
-			}
-
 			if (TargetFrameworksWithEndOfLifeDate.ContainsKey(tfm)) {
 				return TargetFrameworksWithEndOfLifeDate[tfm].HasValue && TargetFrameworksWithEndOfLifeDate[tfm]!.Value <= DateOnly.FromDateTime(DateTime.UtcNow);
 			}
