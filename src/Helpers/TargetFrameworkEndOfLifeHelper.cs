@@ -71,14 +71,14 @@ namespace EndOfLifeApi.Helpers {
 			{"net5.0-windows", new DateOnly(2022, 05, 08)},
 
 			//.NET 6 TFMs taken from https://github.com/dotnet/designs/blob/main/accepted/2021/net6.0-tfms/net6.0-tfms.md
-			{"net6.0", null},
-			{"net6.0-android", null},
-			{"net6.0-ios", null},
-			{"net6.0-macos", null},
-			{"net6.0-maccatalyst", null},
-			{"net6.0-tizen", null},
-			{"net6.0-tvos", null},
-			{"net6.0-windows", null},
+			{"net6.0", new DateOnly(2024, 11, 08)},
+			{"net6.0-android", new DateOnly(2024, 11, 08)},
+			{"net6.0-ios", new DateOnly(2024, 11, 08)},
+			{"net6.0-macos", new DateOnly(2024, 11, 08)},
+			{"net6.0-maccatalyst", new DateOnly(2024, 11, 08)},
+			{"net6.0-tizen", new DateOnly(2024, 11, 08)},
+			{"net6.0-tvos", new DateOnly(2024, 11, 08)},
+			{"net6.0-windows", new DateOnly(2024, 11, 08)},
 		}.ToImmutableDictionary();
 
 		public static TargetFrameworkCheckResponse GetAllEndOfLifeTargetFrameworkMonikers(TimeframeUnit? timeframeUnit = null, byte? timeframeAmount = null) {
