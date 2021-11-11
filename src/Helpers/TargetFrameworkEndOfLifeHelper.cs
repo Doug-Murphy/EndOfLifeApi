@@ -1,10 +1,7 @@
 ﻿using EndOfLifeApi.Enums;
 using EndOfLifeApi.Exceptions;
 using EndOfLifeApi.Models;
-using System;
-using System.Collections.Generic;
 using System.Collections.Immutable;
-using System.Linq;
 
 namespace EndOfLifeApi.Helpers {
 	public static class TargetFrameworkEndOfLifeHelper {
@@ -65,13 +62,13 @@ namespace EndOfLifeApi.Helpers {
 			{"netcoreapp3.1", new DateOnly(2022, 12, 03)},
 
 			//.NET 5 TFMs taken from https://github.com/dotnet/designs/blob/main/accepted/2020/net5/net5.md
-			{"net5.0", null},
-			{"net5.0-android", null},
-			{"net5.0-ios", null},
-			{"net5.0-macos", null},
-			{"net5.0-tvos", null},
-			{"net5.0-watchos", null},
-			{"net5.0-windows", null},
+			{"net5.0", new DateOnly(2022, 05, 08)},
+			{"net5.0-android", new DateOnly(2022, 05, 08)},
+			{"net5.0-ios", new DateOnly(2022, 05, 08)},
+			{"net5.0-macos", new DateOnly(2022, 05, 08)},
+			{"net5.0-tvos", new DateOnly(2022, 05, 08)},
+			{"net5.0-watchos", new DateOnly(2022, 05, 08)},
+			{"net5.0-windows", new DateOnly(2022, 05, 08)},
 
 			//.NET 6 TFMs taken from https://github.com/dotnet/designs/blob/main/accepted/2021/net6.0-tfms/net6.0-tfms.md
 			{"net6.0", null},
