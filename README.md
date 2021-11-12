@@ -63,5 +63,5 @@ query-string parameter timeframe. The results are sorted alphabetically to provi
 ```
 
 # Usage
-
-TODO: Insert Postman collection link.
+View the [public Postman workspace](https://www.postman.com/HDougMurphy/workspace/end-of-life-api) for the collection of
+endpoints and environments for use.
