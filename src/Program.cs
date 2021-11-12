@@ -1,6 +1,4 @@
 using EndOfLifeApi.Filters;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
 
 WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +10,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 WebApplication? app = builder.Build();
+string? port = Environment.GetEnvironmentVariable("PORT");
+
+if (!string.IsNullOrWhiteSpace(port)) {
+	app.Urls.Add("http://*:" + port);
+}
 
 // Configure the HTTP request pipeline.
 app.UseSwagger();
