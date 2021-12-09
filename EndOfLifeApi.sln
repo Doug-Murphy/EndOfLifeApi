@@ -10,8 +10,6 @@ EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EndOfLifeApi", "src\EndOfLifeApi.csproj", "{175C39FF-3B90-4262-AB83-0B627D8B31C4}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{576EA314-6789-486E-A916-E4ADB66CCC10}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
