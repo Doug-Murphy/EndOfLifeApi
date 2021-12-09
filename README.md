@@ -17,48 +17,42 @@ Example: When passing `net45;net5.0` for the TFM.
 
 ```json
 {
-    "endOfLifeTargetFrameworks": [
-        "net45"
-    ]
+    "endOfLifeTargetFrameworks": {
+        "net45": "2016-01-12T00:00:00"
+    }
 }
 ```
 
 ## /EndOfLife/get-all-eol?timeframeUnit=\<enum>&timeframeAmount=\<byte>
 
 This endpoint will return a JSON object with an array named `endOfLifeTargetFrameworks` containing all TFM's that are
-currently EOL, or will be EOL within the (optional)
-query-string parameter timeframe. The results are sorted alphabetically to provide easier manual parsing.
+currently EOL, or will be EOL within the (optional) query-string parameter timeframe. The results are sorted
+alphabetically to provide easier manual parsing.
 
 ```json
 {
-    "endOfLifeTargetFrameworks": [
-        "net11",
-        "net20",
-        "net30",
-        "net40",
-        "net403",
-        "net45",
-        "net451",
-        "net452",
-        "net46",
-        "net461",
-        "netcoreapp1.0",
-        "netcoreapp1.1",
-        "netcoreapp2.0",
-        "netcoreapp2.1",
-        "netcoreapp2.2",
-        "netcoreapp3.0",
-        "v1.1",
-        "v2.0",
-        "v3.0",
-        "v4.0",
-        "v4.0.3",
-        "v4.5",
-        "v4.5.1",
-        "v4.5.2",
-        "v4.6",
-        "v4.6.1"
-    ]
+    "endOfLifeTargetFrameworks": {
+        "net11": "2011-07-12T00:00:00",
+        "net20": "2011-07-12T00:00:00",
+        "net30": "2011-07-12T00:00:00",
+        "net40": "2016-01-12T00:00:00",
+        "net403": "2016-01-12T00:00:00",
+        "net45": "2016-01-12T00:00:00",
+        "net451": "2016-01-12T00:00:00",
+        "netcoreapp1.0": "2019-06-27T00:00:00",
+        "netcoreapp1.1": "2019-06-27T00:00:00",
+        "netcoreapp2.0": "2018-10-01T00:00:00",
+        "netcoreapp2.1": "2021-08-21T00:00:00",
+        "netcoreapp2.2": "2019-12-23T00:00:00",
+        "netcoreapp3.0": "2020-03-03T00:00:00",
+        "v1.1": "2011-07-12T00:00:00",
+        "v2.0": "2011-07-12T00:00:00",
+        "v3.0": "2011-07-12T00:00:00",
+        "v4.0": "2016-01-12T00:00:00",
+        "v4.0.3": "2016-01-12T00:00:00",
+        "v4.5": "2016-01-12T00:00:00",
+        "v4.5.1": "2016-01-12T00:00:00"
+    }
 }
 ```
 
