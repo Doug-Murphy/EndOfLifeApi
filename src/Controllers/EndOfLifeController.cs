@@ -13,11 +13,10 @@ public class EndOfLifeController : ControllerBase {
 	/// <returns></returns>
 	[HttpGet]
 	[Route("check-eol/{tfm}")]
-	[ProducesResponseType(typeof(TargetFrameworkCheckResponse), StatusCodes.Status200OK)]
+	[ProducesResponseType(StatusCodes.Status200OK)]
 	[ProducesResponseType(StatusCodes.Status204NoContent)]
 	[ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
-	[ProducesDefaultResponseType]
-	public IActionResult CheckTargetFrameworkForEndOfLife(string tfm) {
+	public ActionResult<TargetFrameworkCheckResponse> CheckTargetFrameworkForEndOfLife(string tfm) {
 		ArgumentNullException.ThrowIfNull(tfm);
 
 		TargetFrameworkCheckResponse endOfLifeResults = TargetFrameworkEndOfLifeHelper.CheckTargetFrameworkForEndOfLife(tfm);
@@ -34,10 +33,9 @@ public class EndOfLifeController : ControllerBase {
 	/// <returns></returns>
 	[HttpGet]
 	[Route("get-all-eol")]
-	[ProducesResponseType(typeof(TargetFrameworkCheckResponse), StatusCodes.Status200OK)]
+	[ProducesResponseType(StatusCodes.Status200OK)]
 	[ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
-	[ProducesDefaultResponseType]
-	public IActionResult GetEndOfLifeTargetFrameworks(TimeframeUnit timeframeUnit, byte timeframeAmount) {
+	public ActionResult<TargetFrameworkCheckResponse> GetEndOfLifeTargetFrameworks(TimeframeUnit timeframeUnit, byte timeframeAmount) {
 		TargetFrameworkCheckResponse endOfLifeResults = TargetFrameworkEndOfLifeHelper.GetAllEndOfLifeTargetFrameworkMonikers(timeframeUnit, timeframeAmount);
 
 		return Ok(endOfLifeResults);
