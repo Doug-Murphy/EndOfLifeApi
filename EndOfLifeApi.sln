@@ -10,6 +10,13 @@ EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EndOfLifeApi", "src\EndOfLifeApi.csproj", "{175C39FF-3B90-4262-AB83-0B627D8B31C4}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GitHubActions", "GitHubActions", "{5AB79C28-D0C6-42AA-A170-5A4EBB3DEC66}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\azuredeploy.yml = .github\workflows\azuredeploy.yml
+		.github\workflows\dotnet.yml = .github\workflows\dotnet.yml
+		.github\workflows\main_endoflifefunction.yml = .github\workflows\main_endoflifefunction.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
