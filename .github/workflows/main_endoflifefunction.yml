@@ -34,7 +34,7 @@ jobs:
                 ${{ runner.os }}-nuget-
 
       - name: 'Build with dotnet'
-        run: dotnet build --configuration Release
+        run: dotnet build --configuration Release --output ./output
 
       - name: 'Run Azure Functions Action'
         uses: Azure/functions-action@v1
