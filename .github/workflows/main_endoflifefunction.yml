@@ -4,43 +4,42 @@
 name: Deploy to Azure Functions
 
 on:
-  push:
-    branches:
-      - main
-  workflow_dispatch:
+    push:
+        branches:
+            - main
+    workflow_dispatch:
 
 env:
-  AZURE_FUNCTIONAPP_PACKAGE_PATH: '.'   # set this to the path to your web app project, defaults to the repository root
-  DOTNET_VERSION: '6.0.x'               # set this to the dotnet version to use
+    AZURE_FUNCTIONAPP_PACKAGE_PATH: '.'   # set this to the path to your web app project, defaults to the repository root
+    DOTNET_VERSION: '6.0.x'               # set this to the dotnet version to use
 
 jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: 'Checkout GitHub Action'
-        uses: actions/checkout@v3
+    build-and-deploy:
+        runs-on: ubuntu-latest
+        steps:
+            -   name: 'Checkout GitHub Action'
+                uses: actions/checkout@v3
 
-      - name: Setup DotNet ${{ env.DOTNET_VERSION }} Environment
-        uses: actions/setup-dotnet@v2
-        with:
-          dotnet-version: ${{ env.DOTNET_VERSION }}
-          
-      - name: 'Set up dependency caching for faster builds'
-        uses: actions/cache@v3
-        with:
-            path: ~/.nuget/packages
-            key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
-            restore-keys: |
-                ${{ runner.os }}-nuget-
+            -   name: Setup DotNet ${{ env.DOTNET_VERSION }} Environment
+                uses: actions/setup-dotnet@v2
+                with:
+                    dotnet-version: ${{ env.DOTNET_VERSION }}
 
-      - name: 'Build with dotnet'
-        run: dotnet build --configuration Release --output ./output
+            -   name: 'Set up dependency caching for faster builds'
+                uses: actions/cache@v3
+                with:
+                    path: ~/.nuget/packages
+                    key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+                    restore-keys: |
+                        ${{ runner.os }}-nuget-
 
-      - name: 'Run Azure Functions Action'
-        uses: Azure/functions-action@v1
-        id: fa
-        with:
-          app-name: 'endoflifefunction'
-          slot-name: 'Production'
-          package: '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/output'
-          publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }}
+            -   name: 'Build with dotnet'
+                run: dotnet build --configuration Release --output ./output
+
+            -   name: 'Run Azure Functions Action'
+                uses: Azure/functions-action@v1
+                id: fa
+                with:
+                    app-name: 'endoflifefunction'
+                    package: '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/output'
+                    publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }}
