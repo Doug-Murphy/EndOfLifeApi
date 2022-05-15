@@ -6,10 +6,12 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
         <IncludeOpenAPIAnalyzers>true</IncludeOpenAPIAnalyzers>
+        <AzureFunctionsVersion>V4</AzureFunctionsVersion>
     </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="DougMurphy.TargetFrameworks.EndOfLife" Version="2.1.0"/>
+        <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="4.1.0"/>
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.1"/>
     </ItemGroup>
 
@@ -17,6 +19,13 @@
         <Content Update="appsettings.Development.json">
             <DependentUpon>appsettings.json</DependentUpon>
         </Content>
+        <None Update="host.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="local.settings.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+        </None>
     </ItemGroup>
 
 </Project>
