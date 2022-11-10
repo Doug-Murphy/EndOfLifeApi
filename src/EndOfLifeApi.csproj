@@ -7,6 +7,7 @@
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
         <IncludeOpenAPIAnalyzers>true</IncludeOpenAPIAnalyzers>
         <AzureFunctionsVersion>V4</AzureFunctionsVersion>
+        <PublishAot>true</PublishAot>
     </PropertyGroup>
 
     <ItemGroup>
